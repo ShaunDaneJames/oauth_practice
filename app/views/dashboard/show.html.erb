@@ -1,17 +1,17 @@
 <h1>Welcome, <%= current_user.username %></h1>
 
 <h2>Private Repos:</h2>
-<% @user_repos.each do |repo| %>
+<% @repo_list.each do |repo| %>
 <li>
-  <%= repo[:name] if (!repo[:name].empty? && repo[:private])  %>
-  <%= repo[:private] %>
+  <%= repo.name if repo.private  %>
+  <%= repo.private %>
 </li>
 <% end %>
 
 
 <h2>Public Repos:</h2>
-<% @user_repos.each do |repo| %>
+<% @repo_list.each do |repo| %>
 <li>
-  <%= repo[:name] if !repo[:private] %>
+  <%= repo.name if !repo.private %>
 </li>
 <% end %>
