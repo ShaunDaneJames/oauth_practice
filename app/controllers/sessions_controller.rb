@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
 
   def create
-    client_id = 'ce5b5c437014b8a5ce81'
-    client_secret = 'b2ad08598edab97a72a05369fb655427d4ef8dc3'
+    client_id = ENV['client_id']
+    client_secret = ENV['client_secret']
     code = params[:code]
 
     conn = Faraday.new(
