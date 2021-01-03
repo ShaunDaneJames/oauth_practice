@@ -4,12 +4,18 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-* Ignore Gemfile
+# Ignore Gemfile
 .Gemfile
 .Gemfile.lock
 
+# Ignore coverage files
+/coverage
+
 # Ignore bundler config.
 /.bundle
+
+# Ignore migrations
+/db/migrate
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -29,3 +35,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore application configuration
+/config/application.yml
