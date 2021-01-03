@@ -1,0 +1,42 @@
+class SessionService
+
+  def self.authenticate(code)
+    client_id = ENV['client_id']
+    client_secret = ENV['client_secret']
+    code = code
+
+    conn = Faraday.new(
+      url: 'https://github.com',
+      headers: {
+        'Accept': 'application/json'
+      }
+    )
+
+    response = conn.post('/login/oauth/access_token') do |req|
+      req.params['code'] = code
+      req.params['client_id'] = client_id
+      req.params['client_secret'] = client_secret
+      require "pry"; binding.pry
+      data = JSON.parse(response.body, symbolize_names: true)
+      access_token = data[:access_token]
+    end
+      conn = Faraday.new(
+        url: 'https://api.github.com',
+        headers: {
+          'Authorization': "token #{access_token}"
+        }
+      )
+      response = conn.get('/user')
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      user = User.find_or_create_by(uid: data[:id])
+      user.username = data[:login]
+      user.uid = data[:id]
+      user.token = access_token
+      user.save
+
+      session[:user_id] = user.id
+
+      redirect_to dashboard_path
+    end
+  end
