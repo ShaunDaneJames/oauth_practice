@@ -1,3 +1,9 @@
+# class SessionsController < ApplicationController
+#
+#   def create
+#     SessionFacade.authenticate(params[:code])
+#   end
+# end
 class SessionsController < ApplicationController
 
   def create
